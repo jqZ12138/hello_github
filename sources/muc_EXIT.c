@@ -86,11 +86,12 @@ void EXTI9_5_IRQHandler(void)
         if(GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_5) == 0) // 确认按键状态
         {
             LED_Off();
-					 //for(i = 0; i < 5000; i++); // 短暂延时
-						if(mode ==1)
-						{mode=0;}
-						else mode=1;
-					
+						if(mode!=2&&mode!=3)
+						{
+							if(mode ==1)
+							{mode=0;}
+							else mode=1;
+						}
         }       
     EXTI_ClearITPendingBit(EXTI_Line5);
   }
@@ -107,11 +108,12 @@ void EXTI15_10_IRQHandler(void) // key1 - 设置报警时间
         if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_15) == 0) // 确认按键状态
         {
             LED_On();
-					 //for(i = 0; i < 5000; i++); // 短暂延时
+						if(mode!=3)
+						{
 						if(mode ==2)
 						{mode=0;}
 						else mode=2; 
-						
+					}
 						EXTI_ClearITPendingBit(EXTI_Line15);
     }}
 }

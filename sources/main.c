@@ -13,15 +13,18 @@
 volatile u8 mode=0;
 volatile  u8 old_mode=0;
 Queue rx_queue;
-
+_calendar_obj alarm; 
 char* weekdays[]={"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saterday"};
 uint8_t time_buffer[BUFF_SIZE]; 
 uint8_t buffer_index = 0;
-uint8_t data_ready = 0;   
-
+uint8_t data_ready = 0;
+void display_mode0(void);
+void display_mode1(void);
+void display_mode2(void);
+void display_mode3(void);
 int parse_time_string(char* time_str, _calendar_obj* time_struct);
 int main(void)
-{	u8 i;			
+{			
 	uint8_t tbuf[40];
 	uint8_t t = 0;
 	uint8_t rx_char = 0;
@@ -40,91 +43,24 @@ int main(void)
 		}
 		if(mode==3)//正在报警
 		{	
-			for(i=5;i>0;i--)
-			{LCD_ShowString(30, 160, 210, 16, 16, "alarm is ringing......");
-			sprintf((char *)tbuf, "Mode:%d", mode);			
-      LCD_ShowString(30, 180, 100, 16, 16, (char*)tbuf);
-			sprintf((char *)tbuf, "countdown lasting:%ds", i);
-      LCD_ShowString(30, 140, 210, 16, 16, (char*)tbuf);			
-			LCD_ShowString(30, 200, 210, 16, 16, "                    ");			
-			if(i==1){
-			LCD_ShowString(30, 200, 210, 16, 16, "alarm end");}
-			Delay_ms(1000);				
-			}		
-			mode=0;
+			display_mode3();
 		}
 		else if(mode==2)//报警设置时间模式
 		{
-			//LCD_Clear(WHITE);			
-			rtc_get_time();
-			rtc_set_alarm(2025,11,19,14,20,30);
-			LCD_ShowString(30, 160, 210, 16, 16, "alarm is seting......");
-			sprintf((char *)tbuf, "Mode:%d", mode);  
-			LCD_ShowString(30, 180, 100, 16, 16, (char*)tbuf);			
+				display_mode2();		
 		}			
 		else if(mode==1)
 		{
-			//LCD_Clear(WHITE);
-			sprintf((char *)tbuf, "Mode:%d", mode);
-			LCD_ShowString(30, 120, 210, 16, 16, "time is setting......");
-			LCD_ShowString(30, 140, 210, 16, 16, "The input format is:");
-			LCD_ShowString(30, 160, 210, 16, 16, "year-mon-dat week hour:min:sec");
-      LCD_ShowString(30, 180, 100, 16, 16, (char*)tbuf);
-			if(queue_dequeue(&rx_queue, &rx_char))
-			{
-					if(rx_char == '\n' || rx_char == '\r')
-					{
-							if(buffer_index > 0)
-							{
-									time_buffer[buffer_index] = '\0';  
-									data_ready = 1;  
-									buffer_index = 0;
-							}
-					}
-					else
-					{
-							if(buffer_index < sizeof(time_buffer) - 1)
-							{
-									time_buffer[buffer_index++] = rx_char;
-							}
-					}
-				}
-			if(data_ready)
-			{
-				
-					if(parse_time_string((char*)time_buffer, &calendar))
-					{
-						data_ready = 0; 
-						rtc_set_time(calendar.year,calendar.month, calendar.date, calendar.hour, calendar.min, calendar.sec);
-						calendar.week= rtc_get_week(calendar.year,calendar.month, calendar.date); 
-						LCD_ShowString(30, 200, 210, 16, 16, "Setup successful");						
-					}
-			}
-			//mode=0;
-			//Delay(500);
+			display_mode1();
 		}
 		else if(mode==0)
         if ((t % 10) == 0)  
         {
-						sprintf((char *)tbuf, "Mode:%d", mode);  
-            LCD_ShowString(30, 180, 100, 16, 16, (char*)tbuf);
-            rtc_get_time();
-            sprintf((char *)tbuf, "Time:%02d:%02d:%02d", calendar.hour, calendar.min, calendar.sec);
-            LCD_ShowString(30, 120, 210, 16, 16, (char*)tbuf);
-            sprintf((char *)tbuf, "Date:%04d-%02d-%02d", calendar.year, calendar.month, calendar.date);
-            LCD_ShowString(30, 140, 210, 16, 16, (char*)tbuf);
-            sprintf((char *)tbuf, "Week:%s", weekdays[calendar.week]);
-            LCD_ShowString(30, 160, 210, 16, 16, (char *)tbuf);
-					  
+						display_mode0();				  
         }				
-
-		      Delay(10);                                            // Wait 500ms  
 					t++;				
 	}	
-			 LED_On();
-				Delay_ms(500);
-				LED_Off();
-				Delay_ms(500);
+			 
 }
 
 int parse_time_string(char* time_str, _calendar_obj* time_struct)
@@ -155,4 +91,124 @@ int parse_time_string(char* time_str, _calendar_obj* time_struct)
     }
     
     return 0; 
-}                           
+}
+void display_mode0(void)
+{	uint8_t tbuf[40];
+	sprintf((char *)tbuf, "Mode:%d", mode);  
+	LCD_ShowString(30, 140, 100, 16, 16, (char*)tbuf);
+	rtc_get_time();
+	sprintf((char *)tbuf, "Time:%02d:%02d:%02d", calendar.hour, calendar.min, calendar.sec);
+	LCD_ShowString(30, 80, 210, 16, 16, (char*)tbuf);
+	sprintf((char *)tbuf, "Date:%04d-%02d-%02d", calendar.year, calendar.month, calendar.date);
+	LCD_ShowString(30, 100, 210, 16, 16, (char*)tbuf);
+	sprintf((char *)tbuf, "Week:%s", weekdays[calendar.week]);
+	LCD_ShowString(30, 120, 210, 16, 16, (char *)tbuf);
+	sprintf((char *)tbuf, "Alarm Time:%02d:%02d:%02d", alarm.hour, alarm.min, alarm.sec);
+	LCD_ShowString(30, 160, 210, 16, 16, (char*)tbuf);
+	sprintf((char *)tbuf, "Alarm Date:%04d-%02d-%02d", alarm.year, alarm.month, alarm.date);
+	LCD_ShowString(30, 180, 210, 16, 16, (char*)tbuf);
+	sprintf((char *)tbuf, "Alarm Week:%s", weekdays[alarm.week]);
+	LCD_ShowString(30, 200, 210, 16, 16, (char *)tbuf);
+}
+void display_mode1(void)
+{			uint8_t tbuf[40];
+			uint8_t rx_char = 0;
+			sprintf((char *)tbuf, "Mode:%d", mode);
+			LCD_ShowString(30, 80, 210, 16, 16, "time is setting......");
+			LCD_ShowString(30, 100, 210, 16, 16, "The input format is:");
+			LCD_ShowString(30, 120, 210, 16, 16, "format:xxxx-xx-xx x xx:xx:xx");
+      LCD_ShowString(30, 140, 100, 16, 16, (char*)tbuf);
+			if(queue_dequeue(&rx_queue, &rx_char))
+			{
+					if(rx_char == '\n' || rx_char == '\r')
+					{
+							if(buffer_index > 0)
+							{
+									time_buffer[buffer_index] = '\0';  
+									data_ready = 1;  
+									buffer_index = 0;
+							}
+					}
+					else
+					{
+							if(buffer_index < sizeof(time_buffer) - 1)
+							{
+									time_buffer[buffer_index++] = rx_char;
+							}
+					}
+				}
+			if(data_ready)
+			{
+				
+					if(parse_time_string((char*)time_buffer, &calendar))
+					{
+						data_ready = 0; 
+						rtc_set_time(calendar.year,calendar.month, calendar.date, calendar.hour, calendar.min, calendar.sec);
+						calendar.week= rtc_get_week(calendar.year,calendar.month, calendar.date); 
+						LCD_ShowString(30, 160, 210, 16, 16, "Setup successful");						
+					}
+			}
+}
+void display_mode2(void)
+{
+	  uint8_t tbuf[40];
+		uint8_t rx_char = 0;
+		LCD_ShowString(30, 80, 210, 16, 16, "alarm is seting......");
+		sprintf((char *)tbuf, "Mode:%d", mode);  
+		LCD_ShowString(30, 100, 100, 16, 16, (char*)tbuf);		
+		if(queue_dequeue(&rx_queue, &rx_char))
+			{
+					if(rx_char == '\n' || rx_char == '\r')
+					{
+							if(buffer_index > 0)
+							{
+									time_buffer[buffer_index] = '\0';  
+									data_ready = 1;  
+									buffer_index = 0;
+							}
+					}
+					else
+					{
+							if(buffer_index < sizeof(time_buffer) - 1)
+							{
+									time_buffer[buffer_index++] = rx_char;
+							}
+					}
+				}
+			if(data_ready)
+			{
+				
+					if(parse_time_string((char*)time_buffer, &alarm))
+					{
+						data_ready = 0; 						
+						rtc_set_alarm(alarm.year,alarm.month, alarm.date, alarm.hour, alarm.min, alarm.sec);						
+						sprintf((char *)tbuf, "Alarm Time:%02d:%02d:%02d", alarm.hour, alarm.min, alarm.sec);
+						LCD_ShowString(30, 120, 210, 16, 16, (char*)tbuf);
+						sprintf((char *)tbuf, "Alarm Date:%04d-%02d-%02d", alarm.year, alarm.month, alarm.date);
+						LCD_ShowString(30, 140, 210, 16, 16, (char*)tbuf);
+						sprintf((char *)tbuf, "Alarm Week:%s", weekdays[alarm.week]);
+						LCD_ShowString(30, 160, 210, 16, 16, (char *)tbuf);
+						LCD_ShowString(30, 180, 210, 16, 16, "Setup successful");	
+					}
+			}
+}
+void display_mode3(void)
+{			u8 i;
+			uint8_t tbuf[40];
+			for(i=5;i>0;i--)
+			{LCD_ShowString(30, 80, 210, 16, 16, "alarm is ringing......");
+			sprintf((char *)tbuf, "Mode:%d", mode);			
+      LCD_ShowString(30, 100, 100, 16, 16, (char*)tbuf);
+			sprintf((char *)tbuf, "countdown lasting:%ds", i);
+      LCD_ShowString(30, 120, 210, 16, 16, (char*)tbuf);			
+			LCD_ShowString(30, 140, 210, 16, 16, "                    ");			
+			if(i==1){
+			LCD_ShowString(30, 160, 210, 16, 16, "alarm end");}
+			Delay_ms(1000);				
+			}		
+			mode=0;
+}
+
+
+
+

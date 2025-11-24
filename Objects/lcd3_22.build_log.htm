@@ -27,48 +27,60 @@ Project File Date:  11/15/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'Target 1'
-compiling bmp.c...
 compiling queue.c...
-assembling startup_stm32f10x_hd.s...
+compiling bmp.c...
 compiling appcfg.c...
-compiling muc_RS232.c...
-compiling muc_LED.c...
-compiling stm32f10x_exti.c...
-compiling muc_EXIT.c...
-compiling misc.c...
-compiling rtc.c...
-compiling stm32f10x_gpio.c...
 compiling main.c...
-sources\main.c(46): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
-        LCD_ShowString(30, 180, 100, 16, 16, (char*)tbuf);
-sources\main.c(48): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
-        LCD_ShowString(30, 140, 210, 16, 16, (char*)tbuf);			
-sources\main.c(63): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
-  			LCD_ShowString(30, 180, 100, 16, 16, (char*)tbuf);			
-sources\main.c(72): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
-        LCD_ShowString(30, 180, 100, 16, 16, (char*)tbuf);
-sources\main.c(110): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
-              LCD_ShowString(30, 180, 100, 16, 16, (char*)tbuf);
-sources\main.c(113): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
-              LCD_ShowString(30, 120, 210, 16, 16, (char*)tbuf);
-sources\main.c(115): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
-              LCD_ShowString(30, 140, 210, 16, 16, (char*)tbuf);
-sources\main.c(117): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
-              LCD_ShowString(30, 160, 210, 16, 16, (char *)tbuf);
-sources\main.c(124): warning:  #111-D: statement is unreachable
-  			 LED_On();
-sources\main.c(133): warning:  #223-D: function "strlen" declared implicitly
+sources\main.c(28): warning:  #177-D: variable "tbuf"  was declared but never referenced
+  	uint8_t tbuf[40];
+sources\main.c(30): warning:  #177-D: variable "rx_char"  was declared but never referenced
+  	uint8_t rx_char = 0;
+sources\main.c(69): warning:  #223-D: function "strlen" declared implicitly
       if(strlen(time_str) < 19)  
-sources\main.c(158): warning:  #1-D: last line of file ends without a newline
-  }                           
-sources\main.c: 11 warnings, 0 errors
-compiling stm32f10x_rcc.c...
+sources\main.c(98): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  	LCD_ShowString(30, 140, 100, 16, 16, (char*)tbuf);
+sources\main.c(101): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  	LCD_ShowString(30, 80, 210, 16, 16, (char*)tbuf);
+sources\main.c(103): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  	LCD_ShowString(30, 100, 210, 16, 16, (char*)tbuf);
+sources\main.c(105): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  	LCD_ShowString(30, 120, 210, 16, 16, (char *)tbuf);
+sources\main.c(107): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  	LCD_ShowString(30, 160, 210, 16, 16, (char*)tbuf);
+sources\main.c(109): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  	LCD_ShowString(30, 180, 210, 16, 16, (char*)tbuf);
+sources\main.c(111): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  	LCD_ShowString(30, 200, 210, 16, 16, (char *)tbuf);
+sources\main.c(120): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+        LCD_ShowString(30, 140, 100, 16, 16, (char*)tbuf);
+sources\main.c(158): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  		LCD_ShowString(30, 100, 100, 16, 16, (char*)tbuf);		
+sources\main.c(186): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  						LCD_ShowString(30, 120, 210, 16, 16, (char*)tbuf);
+sources\main.c(188): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  						LCD_ShowString(30, 140, 210, 16, 16, (char*)tbuf);
+sources\main.c(190): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+  						LCD_ShowString(30, 160, 210, 16, 16, (char *)tbuf);
+sources\main.c(201): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+        LCD_ShowString(30, 100, 100, 16, 16, (char*)tbuf);
+sources\main.c(203): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "u8 *"
+        LCD_ShowString(30, 120, 210, 16, 16, (char*)tbuf);			
+sources\main.c: 17 warnings, 0 errors
+assembling startup_stm32f10x_hd.s...
+compiling muc_RS232.c...
+compiling misc.c...
+compiling muc_LED.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_exti.c...
+compiling rtc.c...
+compiling muc_EXIT.c...
 compiling muc_lcd93xx.c...
+compiling stm32f10x_rcc.c...
 compiling system_stm32f10x.c...
 linking...
-Program Size: Code=12752 RO-data=6776 RW-data=52 ZI-data=1804  
+Program Size: Code=13420 RO-data=6776 RW-data=52 ZI-data=1812  
 FromELF: creating hex file...
-".\Objects\lcd3_22.axf" - 0 Error(s), 11 Warning(s).
+".\Objects\lcd3_22.axf" - 0 Error(s), 17 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -100,8 +112,8 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
       Source file:   Device/Source/system_stm32f10x.c
+      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
       Source file:   Device/Source/ARM/startup_stm32f10x_hd.s
       Include file:  RTE_Driver/Config/RTE_Device.h
 
@@ -110,20 +122,20 @@ Package Vendor: Keil
       Source file:   Device/StdPeriph_Driver/src/stm32f10x_exti.c
 
    * Component: Keil::Device:StdPeriph Drivers:Framework:3.6.0
-      Source file:   Device/StdPeriph_Driver/templates/stm32f10x_it.c
       Include file:  Device/StdPeriph_Driver/inc/misc.h
       Source file:   Device/StdPeriph_Driver/src/misc.c
+      Source file:   Device/StdPeriph_Driver/templates/stm32f10x_it.c
       Source file:   Device/StdPeriph_Driver/templates/stm32f10x_conf.h
       Include file:  Device/StdPeriph_Driver/templates/stm32f10x_it.h
 
    * Component: Keil::Device:StdPeriph Drivers:GPIO:3.6.0
-      Include file:  Device/StdPeriph_Driver/inc/stm32f10x_gpio.h
       Source file:   Device/StdPeriph_Driver/src/stm32f10x_gpio.c
+      Include file:  Device/StdPeriph_Driver/inc/stm32f10x_gpio.h
 
    * Component: Keil::Device:StdPeriph Drivers:RCC:3.6.0
       Source file:   Device/StdPeriph_Driver/src/stm32f10x_rcc.c
       Include file:  Device/StdPeriph_Driver/inc/stm32f10x_rcc.h
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

@@ -532,7 +532,7 @@ void LCD_Set_Window(u16 sx,u16 sy,u16 width,u16 height)
 	}
 } 
 
-void   lcd_Init (void)
+void  lcd_Init (void)
 {
 		RCC->APB2ENR=0x3d;		//先使能外设时钟	PORTD PORTC  PORTB  PORTA  AFIO
 		AFIO->MAPR= 0x02000000;
