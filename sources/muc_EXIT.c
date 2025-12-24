@@ -24,7 +24,7 @@ void muc_EXIT_Init(void)
 	GPIOA->CRH|=0X80000000; 			 
 	GPIOA->ODR|=1<<15;	   	//PA15上拉,PA0默认下拉
 	GPIOC->CRL&=0XFF0FFFFF;	//PC5设置成输入	  
-	GPIOC->CRL|=0X00400000;  
+	GPIOC->CRL|=0X00800000;  
 	GPIOC->ODR|=1<<5;	   	//PC5上拉
 	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);/* 设置NVIC为优先级组2 */  
@@ -62,7 +62,6 @@ void muc_EXIT_Init(void)
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource15); 
   EXTI_InitStructure.EXTI_Line = EXTI_Line15;	
   EXTI_Init(&EXTI_InitStructure);
-	//EXTI->IMR=0x0000 A001;
 }
 
 
@@ -79,10 +78,7 @@ void EXTI0_IRQHandler(void)
 void EXTI9_5_IRQHandler(void)
 {
   if(EXTI_GetITStatus(EXTI_Line5) != RESET)
-  {
-				volatile uint32_t i;
-        for(i = 0; i < 5000; i++); // 短暂延时
-        
+ {			
         if(GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_5) == 0) // 确认按键状态
         {
             LED_Off();
@@ -102,9 +98,7 @@ void EXTI15_10_IRQHandler(void) // key1 - 设置报警时间
     // 检查EXTI Line15中断
     if(EXTI_GetITStatus(EXTI_Line15) != RESET)
     {
-				volatile uint32_t i;
-        for(i = 0; i < 5000; i++); // 短暂延时
-        
+				
         if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_15) == 0) // 确认按键状态
         {
             LED_On();

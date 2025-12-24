@@ -967,14 +967,14 @@ void LCD_Fill_img(u16 xsta,u16 ysta,u16 xend,u16 yend,unsigned char *p)
 	xlen=xend-xsta+1;	   
 	for(i=ysta;i<=yend;i++)
 	{
-	 	LCD_SetCursor(xsta,i);      //?????? 
-		LCD_WriteRAM_Prepare();     //????GRAM	  
+	 	LCD_SetCursor(xsta,i);     
+		LCD_WriteRAM_Prepare();     
 		for(j=0;j<xlen;j++)
 		{
 			dh=*p;	 p=p+1;
 			dl=*p;	  p=p+1;
 			dhl=dh*256+dl;
-			LCD_WR_DATA(dhl);//?????? 	    
+			LCD_WR_DATA(dhl); 	    
 		}
 	}
 

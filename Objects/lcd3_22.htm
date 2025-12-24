@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\lcd3_22.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\lcd3_22.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Sat Nov 22 22:09:33 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Dec 24 13:38:40 2025
 <BR><P>
 <H3>Maximum Stack Usage =        320 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -848,6 +848,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_RD_DATA
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rtc_init
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_Init
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_ms
 </UL>
 
@@ -868,7 +869,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[3a]"></a>EXTI15_10_IRQHandler</STRONG> (Thumb, 92 bytes, Stack size 8 bytes, muc_exit.o(i.EXTI15_10_IRQHandler))
+<P><STRONG><a name="[3a]"></a>EXTI15_10_IRQHandler</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, muc_exit.o(i.EXTI15_10_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = EXTI15_10_IRQHandler
 </UL>
 <BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
@@ -878,7 +879,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[29]"></a>EXTI9_5_IRQHandler</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, muc_exit.o(i.EXTI9_5_IRQHandler))
+<P><STRONG><a name="[29]"></a>EXTI9_5_IRQHandler</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, muc_exit.o(i.EXTI9_5_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = EXTI9_5_IRQHandler
 </UL>
 <BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
@@ -1103,7 +1104,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[aa]"></a>display_mode1</STRONG> (Thumb, 274 bytes, Stack size 64 bytes, main.o(i.display_mode1))
+<P><STRONG><a name="[aa]"></a>display_mode1</STRONG> (Thumb, 298 bytes, Stack size 64 bytes, main.o(i.display_mode1))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320 + Unknown Stack Size
 <LI>Call Chain = display_mode1 &rArr; parse_time_string &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
@@ -1117,7 +1118,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[af]"></a>display_mode2</STRONG> (Thumb, 340 bytes, Stack size 64 bytes, main.o(i.display_mode2))
+<P><STRONG><a name="[af]"></a>display_mode2</STRONG> (Thumb, 362 bytes, Stack size 64 bytes, main.o(i.display_mode2))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320 + Unknown Stack Size
 <LI>Call Chain = display_mode2 &rArr; parse_time_string &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
@@ -1156,7 +1157,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[6a]"></a>main</STRONG> (Thumb, 214 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[6a]"></a>main</STRONG> (Thumb, 220 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320 + Unknown Stack Size
 <LI>Call Chain = main &rArr; display_mode2 &rArr; parse_time_string &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
@@ -1172,6 +1173,7 @@ Global Symbols
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_mode2
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_mode1
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_mode0
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
